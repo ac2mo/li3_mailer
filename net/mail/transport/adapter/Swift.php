@@ -115,13 +115,15 @@ class Swift extends \li3_mailer\net\mail\Transport {
 		}
 		switch ($type) {
 			case 'mail':
-				$transport = Swift_MailTransport::newInstance();
+				$error = "Deprecated transport type `{$type}` " .
+					"for `Swift` adapter.";
+				throw new RuntimeException($error);
 			break;
 			case 'sendmail':
-				$transport = Swift_SendmailTransport::newInstance();
+				$transport = new Swift_SendmailTransport();
 			break;
 			case 'smtp':
-				$transport = Swift_SmtpTransport::newInstance();
+				$transport = new Swift_SmtpTransport();
 			break;
 			default:
 				$error = "Unknown transport type `{$type}` " .
